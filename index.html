@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bären Haus - Traditional German Restaurant & Beer House</title>
+    <link rel="icon" href="https://www.barenhaus.com/wp-content/uploads/2016/08/BH-FAVICON.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            color: #2c2c2c;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation - Attractive Redesign */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(28, 18, 12, 0.85);
+            /* Dark wood tone */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 0.8rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffd700;
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Cinzel', serif;
+            /* Or fallback to serif */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Import a google font for the brand if possible, or just use serif */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
+        nav ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: #f5f5dc;
+            /* Beige */
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Nav Toggle Button */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        /* Hero Section with Slider */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            padding: 100px 20px;
+            /* Added padding to prevent clipping at top/bottom */
+            box-sizing: border-box;
+        }
+
+        /* Ken Burns Effect */
+        @keyframes kenBurns {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                transform: scale(1.15) translate(-2%, -1%);
+            }
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            animation: kenBurns 10s linear infinite alternate;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg,
+                    rgba(0, 0, 0, 0.3) 0%,
+                    rgba(0, 0, 0, 0) 50%,
+                    rgba(0, 0, 0, 0.6) 100%);
+            z-index: 2;
+        }
+
+        /* Slide specific styles removed to simplify - using background from active slides */
+        .slide:nth-child(1) {
+            background-image: url("https://www.barenhaus.com/wp-content/uploads/2016/08/2016-07-20-06.16.37-1024x685.jpg");
+        }
+
+        .slide:nth-child(2) {
+            background-image: url("https://www.barenhaus.com/wp-content/uploads/2016/08/2016-07-20-06.10.00-1024x685.jpg");
+        }
+
+        .slide:nth-child(3) {
+            background-image: url("https://www.barenhaus.com/wp-content/uploads/2016/08/2016-07-20-06.08.45-1024x685.jpg");
+        }
+
+        .slide:nth-child(4) {
+            background-image: url("https://www.barenhaus.com/wp-content/uploads/2016/08/2016-07-20-06.08.33-1024x685.jpg");
+        }
+
+
+
+
+
+        /*.slide:nth-child(5) {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"><rect fill="%235C4033" width="1600" height="900"/><text x="50%" y="50%" fill="%23f5f5dc" font-size="48" text-anchor="middle" dominant-baseline="middle">Beer Selection</text></svg>');
+        }*/
+
+
+        /* Luxury Content Box */
+        .hero-overlay {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            padding: 2rem;
+            pointer-events: none;
+        }
+
+        .hero-content-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 3.5rem 2.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1.2s ease-out;
+            pointer-events: auto;
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-logo {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            margin: 0 auto 2rem auto;
+            display: block;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+            flex-shrink: 0;
+        }
+
+        .hero-tagline {
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem;
+            color: #ffd700;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: #f5f5dc;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+            line-height: 1.2;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700 0%, #cdaa6c 100%);
+            color: #1c120c;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, #f5f5dc 0%, #ffd700 100%);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: #f5f5dc;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+            pointer-events: auto;
+        }
+
+        .scroll-indicator:hover {
+            opacity: 1;
+        }
+
+        .mouse {
+            width: 26px;
+            height: 42px;
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .scroll-wheel {
+            width: 4px;
+            height: 8px;
+            background: #ffd700;
+            border-radius: 2px;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll-anim 2s infinite;
+        }
+
+        @keyframes scroll-anim {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(15px);
+            }
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 160px;
+            /* Moved up significantly to clear scroll indicator */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #ffd700;
+            transform: scale(1.3);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            color: #8B4513;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #ffd700;
+        }
+
+        /* Home Section */
+        #home {
+            background: #fdfbf7;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #home::before {
+            content: '🥨';
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            font-size: 5rem;
+            opacity: 0.03;
+            transform: rotate(-15deg);
+        }
+
+        #home::after {
+            content: '🍺';
+            position: absolute;
+            bottom: 10%;
+            right: 5%;
+            font-size: 5rem;
+            opacity: 0.03;
+            transform: rotate(15deg);
+        }
+
+        .home-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .home-glass-box {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .home-text h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: #5d2e0c;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .home-text p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            color: #4a3728;
+            line-height: 1.7;
+        }
+
+        .home-info-highlight {
+            border-top: 2px solid #ffd700;
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .home-info-highlight p {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: 0 20px 45px rgba(139, 69, 19, 0.15);
+            border-color: #ffd700;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #fdf5e6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: #ffd700;
+            color: #5d2e0c;
+            transform: rotate(360deg);
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+
+        .feature-card h4 {
+            color: #5d2e0c;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #6b5a4d;
+            line-height: 1.5;
+        }
+
+        /* Drinks Menu Section */
+        #drinks-menu {
+            position: relative;
+            overflow: hidden;
+            background: #fdfbf7;
+        }
+
+        #drinks-menu::before {
+            content: '🍷';
+            position: absolute;
+            top: 15%;
+            right: 10%;
+            font-size: 6rem;
+            opacity: 0.03;
+            transform: rotate(20deg);
+        }
+
+        #drinks-menu::after {
+            content: '🥨';
+            position: absolute;
+            bottom: 15%;
+            left: 10%;
+            font-size: 6rem;
+            opacity: 0.03;
+            transform: rotate(-20deg);
+        }
+
+        .menus-display {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .menu-frame {
+            background: #fff;
+            padding: 1rem;
+            border: 12px solid #5d2e0c;
+            border-image: linear-gradient(135deg, #5d2e0c 0%, #8b4513 50%, #5d2e0c 100%) 1;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .menu-frame::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            pointer-events: none;
+        }
+
+        @media (hover: hover) {
+            .menu-frame:hover {
+                transform: translateY(-15px) rotate(0deg);
+                box-shadow: 0 30px 60px rgba(139, 69, 19, 0.4);
+                border-image: linear-gradient(135deg, #ffd700 0%, #8b4513 50%, #ffd700 100%) 1;
+            }
+
+            .menu-frame:hover::before {
+                border-color: rgba(255, 215, 0, 0.8);
+                transform: scale(1.02);
+            }
+        }
+
+        .menu-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .drink-category-icon {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #fdf5e6;
+            border-radius: 10px;
+            color: #ffd700;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+            padding: 1rem;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(139, 69, 19, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        @media (hover: hover) {
+            .menu-item:hover {
+                transform: translateY(-12px) scale(1.02);
+                box-shadow: 0 15px 45px rgba(139, 69, 19, 0.2);
+                border: 1px solid rgba(255, 215, 0, 0.4);
+                background: rgba(255, 255, 255, 0.9);
+            }
+
+            .menu-item:hover::before {
+                opacity: 1;
+            }
+        }
+
+        .menu-item h3 {
+            color: #5d2e0c;
+            margin-bottom: 0.8rem;
+            font-size: 1.6rem;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        @media (hover: hover) {
+            .menu-item:hover h3 {
+                color: #8B4513;
+            }
+        }
+
+        .menu-item .price {
+            color: #cdaa6c;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+            font-family: 'Cinzel', serif;
+        }
+
+        .menu-item p {
+            color: #4a4a4a;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-top: 0.5rem;
+        }
+
+        /* Decorative Dividers */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 4rem 0 2rem;
+            gap: 20px;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            height: 2px;
+            flex: 1;
+            background: linear-gradient(90deg, transparent, #cdaa6c, transparent);
+        }
+
+        .section-divider svg {
+            width: 40px;
+            height: 40px;
+            fill: #8B4513;
+            opacity: 0.6;
+        }
+
+        .menu-category-title {
+            color: #654321;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .menu-category-title span {
+            display: block;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #cdaa6c;
+            margin-bottom: 0.5rem;
+        }
+
+        .special-badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #ffd700;
+            color: #2c2c2c;
+            padding: 5px 40px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            transform: rotate(45deg);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #main-menu {
+            background: radial-gradient(circle at center, #fdfbf7 0%, #f5e6d3 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #main-menu::before {
+            content: '🍺';
+            position: absolute;
+            top: 55px;
+            right: -50px;
+            font-size: 15rem;
+            opacity: 0.03;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        #main-menu::after {
+            content: '🥨';
+            position: absolute;
+            bottom: 50px;
+            left: -50px;
+            font-size: 15rem;
+            opacity: 0.03;
+            transform: rotate(15deg);
+            pointer-events: none;
+        }
+
+        #drinks-menu {
+            background: white;
+            padding-bottom: 0;
+        }
+
+        /* Gallery Section */
+        #gallery {
+            background: #fdfbf7;
+            position: relative;
+            overflow: hidden;
+            padding: 3rem 2rem 5rem;
+            /* Reduced top padding */
+        }
+
+        #gallery::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-auto-rows: 300px;
+            grid-auto-flow: dense;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Create a staggered/masonry feel */
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: grayscale(20%);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(93, 46, 12, 0.9), rgba(93, 46, 12, 0));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: all 0.4s ease;
+            transform: translateY(20px);
+        }
+
+        .gallery-overlay h4 {
+            color: #ffd700;
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-overlay p {
+            color: #fff;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (hover: hover) {
+            .gallery-item:hover {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 0 20px 50px rgba(139, 69, 19, 0.3);
+                border-color: #ffd700;
+                z-index: 10;
+            }
+
+            .gallery-item:hover img {
+                transform: scale(1.1);
+                filter: grayscale(0%) brightness(1.1);
+            }
+
+            .gallery-item:hover .gallery-overlay {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(rgba(44, 44, 44, 0.8), rgba(44, 44, 44, 0.8)), url('https://www.barenhaus.com/wp-content/uploads/2016/08/baren-haus-night.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #fdf5e6;
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            margin-top: 4rem;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-info-glass,
+        .contact-form-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 3.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-item {
+            margin-bottom: 2.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .contact-item-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover .contact-item-icon {
+            background: #ffd700;
+            color: #2c2c2c;
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .contact-item h4 {
+            color: #ffd700;
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p,
+        .contact-item a {
+            color: #fdf5e6;
+            text-decoration: none;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .contact-item a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .contact-form-glass input,
+        .contact-form-glass textarea {
+            width: 100%;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #fff;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form-glass input:focus,
+        .contact-form-glass textarea:focus {
+            outline: none;
+            border-color: #ffd700;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .contact-form-glass button {
+            width: 100%;
+            background: linear-gradient(135deg, #ffd700 0%, #daa520 100%);
+            color: #2c2c2c;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Cinzel', serif;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .contact-form-glass button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .menu-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+
+        /* Download Button */
+        .download-container {
+            text-align: center;
+            margin-bottom: 3rem;
+            margin-top: -1rem;
+        }
+
+        #downloadPdfBtn {
+            background: #e9bd2b;
+            /* Light cream background */
+            color: #8B4513;
+            /* Brown text */
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border: 2px solid #8B4513;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #downloadPdfBtn:hover {
+            background: #8B4513;
+            /* Brown background on hover */
+            color: #fdfbf7;
+            /* Light text */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+        }
+
+        #downloadPdfBtn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Comprehensive Responsive Updates */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+                padding: 0.5rem 1rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+                margin-top: 1rem;
+                background: rgba(28, 18, 12, 0.98);
+                border-top: 1px solid rgba(255, 215, 0, 0.2);
+                padding: 1rem 0;
+                border-radius: 0 0 15px 15px;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+
+            nav a {
+                display: block;
+                padding: 1.2rem;
+                font-size: 1.1rem;
+                border-bottom: 1px solid rgba(255, 215, 0, 0.05);
+            }
+
+            nav a::after {
+                display: none;
+            }
+
+            .nav-brand {
+                font-size: 1.3rem;
+            }
+
+            /* Fluid Typography & Spacing */
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+                line-height: 1.3;
+            }
+
+            .hero-tagline {
+                font-size: 0.75rem;
+                letter-spacing: 2px;
+            }
+
+            /* Grid Stacking */
+            .home-content,
+            .contact-container,
+            .features,
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 250px;
+                gap: 1rem;
+            }
+
+            .gallery-item.wide,
+            .gallery-item.tall {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+            }
+
+            /* Elements Fixes */
+            .hero-content-box {
+                padding: 2rem 1.2rem;
+                margin: 0 0.5rem;
+            }
+
+            .hero-logo {
+                max-width: 150px;
+            }
+
+            .slider-dots {
+                bottom: 140px;
+            }
+
+            .scroll-indicator {
+                bottom: 25px;
+            }
+
+            .menu-item {
+                padding: 1.5rem;
+            }
+
+            /* Enable hover effects via touch/tap */
+            .gallery-item:active .gallery-overlay,
+            .feature-card:active,
+            .menu-frame:active {
+                transform: translateY(-10px) scale(0.98);
+                box-shadow: 0 20px 40px rgba(139, 69, 19, 0.5);
+                border-image: linear-gradient(135deg, #ffd700 0%, #8b4513 50%, #ffd700 100%) 1;
+                opacity: 1;
+            }
+
+            .menu-frame:active::before {
+                border-color: rgba(255, 215, 0, 0.8);
+                transform: scale(1.02);
+            }
+
+            .menu-item:active {
+                transform: scale(0.98);
+                opacity: 1;
+            }
+
+            .gallery-item:active .gallery-overlay {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .gallery-item:active img {
+                transform: scale(1.1);
+                filter: grayscale(0%);
+            }
+
+            /* Fix Fixed Backgrounds on Mobile */
+            #contact {
+                background-attachment: scroll;
+            }
+
+            .contact-info-glass,
+            .contact-form-glass {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+                -webkit-backdrop-filter: blur(15px);
+                backdrop-filter: blur(15px);
+            }
+
+            .contact-container {
+                margin-top: 2rem;
+            }
+
+            .contact-item {
+                margin-bottom: 1.5rem;
+                gap: 1rem;
+            }
+
+            .footer-column {
+                padding: 1.5rem 1rem;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .footer-column h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .footer-column ul li a {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .menus-display {
+                gap: 1rem;
+            }
+
+            .menu-frame {
+                border-width: 4px;
+                padding: 0.5rem;
+            }
+        }
+
+        /* Social Icons & Bottom Nav */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-icon {
+            color: #f5f5dc;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-decoration: none;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .social-icon:hover {
+            background: #ffd700;
+            color: #2c2c2c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            border-color: #ffd700;
+        }
+
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Footer Redesign */
+        footer {
+            background: linear-gradient(rgba(28, 18, 12, 0.98), rgba(28, 18, 12, 0.98)), url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            color: #fdf5e6;
+            padding: 5rem 2rem 2rem;
+            border-top: 3px solid #ffd700;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+
+        .footer-column {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .footer-column:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 215, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .footer-column h4 {
+            color: #ffd700;
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: #ffd700;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #fdf5e6;
+            text-decoration: none !important;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            opacity: 1;
+            color: #ffd700;
+            padding-left: 5px;
+        }
+
+        .footer-column p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-bottom {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 992px) {
+            .contact-container {
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .contact-info-glass,
+            .contact-form-glass {
+                padding: 2.5rem 2rem;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .footer-column {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="menu_data.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-brand">Bären Haus</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <ul id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#main-menu">Menu</a></li>
+                <li><a href="#drinks-menu">Beer, Wine & Appetizers</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Image Slider -->
+    <div class="hero">
+        <div class="slider">
+            <div class="slide active"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+
+        <div class="hero-overlay">
+            <div class="hero-content-box">
+                <span class="hero-tagline">Since 1980</span>
+                <img src="https://www.barenhaus.com/wp-content/uploads/2016/08/Baren-Haus-Logo-400x455.png"
+                    alt="Bären Haus Logo" class="hero-logo">
+                <h1 class="hero-title">AUTHENTIC GERMAN<br>CUISINE & BEER HOUSE</h1>
+                <a href="#main-menu" class="hero-cta">Explore Our Menu</a>
+            </div>
+        </div>
+
+        <a href="#home" class="scroll-indicator">
+            <div class="mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span>Discover More</span>
+        </a>
+        <div class="slider-dots">
+            <span class="dot active" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+            <span class="dot" onclick="goToSlide(3)"></span>
+        </div>
+    </div>
+
+    <!-- Home Section -->
+    <section id="home">
+        <h2 class="menu-category-title" style="margin-bottom: 4rem;">
+            <span>Willkommen</span>
+            Welcome to Bären Haus
+        </h2>
+        <div class="home-content">
+            <div class="home-glass-box">
+                <div class="home-text">
+                    <h3>Authentic German Cuisine & Beer House</h3>
+                    <p>Located in the heart of Leavenworth, Bären Haus brings the warmth and tradition of Bavaria to
+                        Washington State. Our cozy, brick-walled space offers an authentic German dining experience
+                        featuring traditional dishes, imported beers, and live music on weekends.</p>
+
+                    <div class="home-info-highlight">
+                        <p>
+                            <span class="material-symbols-outlined" style="color: #ffd700;">location_on</span>
+                            901 Front St, Leavenworth, WA 98826
+                        </p>
+                        <p>
+                            <span class="material-symbols-outlined" style="color: #ffd700;">call</span>
+                            +1 509-548-4535
+                        </p>
+                        <p>
+                            <span class="material-symbols-outlined" style="color: #ffd700;">schedule</span>
+                            Opens Friday at 11:00 AM
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12,2L4,5V11C4,16.55 7.84,21.74 12,23C16.16,21.74 20,16.55 20,11V5L12,2M12,4.4L18,6.6V11C18,15.15 15.42,19.23 12,20.4C8.58,19.23 6,15.15 6,11V6.6L12,4.4M12,7C10.34,7 9,8.34 9,10C9,11.66 10.34,13 12,13C13.66,13 15,11.66 15,10C15,8.34 13.66,7 12,7Z" />
+                        </svg>
+                    </div>
+                    <h4>Traditional Bavarian</h4>
+                    <p>Authentic German dishes prepared with time-honored recipes</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12,3V12.26C11.5,12.09 11,12 10.5,12C8,12 6,14 6,16.5C6,19 8,21 10.5,21C13,21 15,19 15,16.5V6H19V3H12M10.5,19C9.1,19 8,17.9 8,16.5C8,15.1 9.1,14 10.5,14C11.9,14 13,15.1 13,16.5C13,17.9 11.9,19 10.5,19Z" />
+                        </svg>
+                    </div>
+                    <h4>Live Music</h4>
+                    <p>Enjoy live performances every weekend</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M7.5,2C5.57,2 4,3.57 4,5.5V14.5A3.5,3.5 0 0,0 7.5,18H16.5A3.5,3.5 0 0,0 20,14.5V5.5C20,3.57 18.43,2 16.5,2H7.5M7.5,4H16.5C17.33,4 18,4.67 18,5.5V14.5C18,15.33 17.33,16 16.5,16H7.5C6.67,16 6,15.33 6,14.5V5.5C6,4.67 6.67,4 7.5,4M7,6V8H17V6H7M7,10V12H17V10H7M7,14V16H13V14H7Z" />
+                        </svg>
+                    </div>
+                    <h4>Imported Beers</h4>
+                    <p>Extensive selection of German beers and wines</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M16 17V19H2V17S2 13 9 13 16 17 16 17M12.5 7.5A3.5 3.5 0 1 0 9 11A3.5 3.5 0 0 0 12.5 7.5M15.94 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13M15 4A3.39 3.39 0 0 0 13.07 4.59A5 5 0 0 1 13.07 10.41A3.39 3.39 0 0 0 15 11A3.5 3.5 0 0 0 15 4Z" />
+                        </svg>
+                    </div>
+                    <h4>Large Groups</h4>
+                    <p>Perfect for gatherings and celebrations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Menu Section -->
+    <section id="main-menu">
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12,2L4,5V11C4,16.55 7.84,21.74 12,23C16.16,21.74 20,16.55 20,11V5L12,2M12,4.4L18,6.6V11C18,15.15 15.42,19.23 12,20.4C8.58,19.23 6,15.15 6,11V6.6L12,4.4M12,7C10.34,7 9,8.34 9,10C9,11.66 10.34,13 12,13C13.66,13 15,11.66 15,10C15,8.34 13.66,7 12,7Z" />
+            </svg>
+        </div>
+
+        <h2 class="menu-category-title">
+            <span>Our Traditional</span>
+            German Entrees
+        </h2>
+
+        <div
+            style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px); padding: 1.5rem; border-radius: 15px; margin-bottom: 3rem; border: 1px solid rgba(139, 69, 19, 0.1); max-width: 800px; margin-left: auto; margin-right: auto;">
+            <p style="text-align: center; color: #5d2e0c; font-style: italic; font-size: 1.1rem; line-height: 1.6;">
+                "All entrees are served with red cabbage, sauerkraut, freshly baked bread, and seasoned German fried
+                potatoes."
+            </p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <div class="special-badge">Must Try</div>
+                <h3>Schnitzel</h3>
+                <p>A true old world delight of lean pork, hand pounded to perfect tender consistency, breaded and
+                    pan-seared to perfection. Fantastic!</p>
+            </div>
+            <div class="menu-item">
+                <h3>Jaeger Schnitzel</h3>
+                <p>Our breaded, pan-seared schnitzel smothered with our mushroom pan gravy.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Schnitzel Cordon Bleu</h3>
+                <p>Our breaded, pan-seared schnitzel layered with Swiss cheese and Black Forest Ham.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Kohl Roulade</h3>
+                <p>Cabbage leaves stuffed with seasoned ground sirloin, pork, and rice, topped with marinara.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Sauerbraten</h3>
+                <p>A method of preparing roast beef that dates back centuries. Choice beef marinated in a special brine
+                    and slow cooked to keep tender and retain the flavor. Served with our own sweet and tangy brown
+                    gravy.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Bratwurst Platter</h3>
+                <p>A sausage-lover's favorite. Two thick, pork sausages famous for their mild but tasty seasoning. The
+                    perfect complement for a robust German beer.</p>
+            </div>
+            <div class="menu-item">
+                <h3>German Sausage Platter</h3>
+                <p>Another beer-lover's favorite. This platter features two moderately spiced German sausages carefully
+                    smoked for 24 hours. Delicious!</p>
+            </div>
+            <div class="menu-item">
+                <h3>Combination Platter</h3>
+                <p>The best of both worlds. Enjoy one each of our German sausage and bratwurst.</p>
+            </div>
+            <div class="menu-item">
+                <div class="special-badge">Chef's Choice</div>
+                <h3>Beef Rouladen</h3>
+                <p>One of the true specialties of the house. We cut choice Angus beef into thin slices, lay in a healthy
+                    portion of bacon, onion, carrot, pickles and spices then "roul" the beef up and slow cook it to a
+                    mouth watering perfection topped with Baren Haus gravy.</p>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M11,9H13V11H11V9M11,13H13V17H11V13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20Z" />
+            </svg>
+        </div>
+        <h2 class="menu-category-title">
+            <span>Haus Specialty</span>
+            German Sandwiches
+        </h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Rueben Sandwich</h3>
+                <p>Our Haus Specialty. Seasoned corned beef on top of our Haus made rye bread, Baren Haus sauerkraut,
+                    thousand island dressing and melted Swiss cheese. Served with fries.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Schnitzel Sandwich</h3>
+                <p>Our Haus made Schnitzel on a French roll with sauerkraut grilled onions and Swiss cheese. Served with
+                    seasoned German fried potatoes.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Sausage Sandwich</h3>
+                <p>Your choice of a Bratwurst or German sausage served open on a French roll and topped with sauerkraut.
+                    Served with Seasoned German fried potatoes.</p>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12,2A10,10 0 1,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 1,1 20,12A8,8 0 0,1 12,20M13,7H11V13H13M13,15H11V17H13" />
+            </svg>
+        </div>
+        <h2 class="menu-category-title">
+            <span>Charbroiler</span>
+            Burgers & Sandwiches
+        </h2>
+        <div
+            style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <p style="text-align: center; color: #666; font-size: 0.95rem;">
+                All items served with mayo, lettuce, tomato, onion and pickle on the side. Served with fries.
+                (Gluten-free bun available upon request on chicken sandwich and burgers)
+            </p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Baren Haus Burger</h3>
+                <p>Half pound lean ground sirloin on a brioche bun. Add Swiss or cheddar cheese (extra cost)</p>
+            </div>
+            <div class="menu-item">
+                <h3>Black Forest Burger</h3>
+                <p>Half pound burger topped with Black Forest Ham and Swiss cheese.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Mushroom Swiss Burger</h3>
+                <p>Our half pound burger topped with sautéed mushrooms and Swiss cheese.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Grilled Chicken Sandwich</h3>
+                <p>Marinated chicken breast served on a brioche bun.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Steak Sandwich</h3>
+                <p>8oz New York Strip cooked to your liking served on a French roll.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Veggie Burger</h3>
+                <p>A healthy alternative featuring ingredients of a plant-based burger served on a brioche bun with
+                    mayo.</p>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path d="M22,10V14H20V12H4V14H2V10H22M21,6V8H3V6H21M21,16V18H3V16H21Z" />
+            </svg>
+        </div>
+        <h2 class="menu-category-title">
+            <span>Premium Selection</span>
+            Steak & Chicken
+        </h2>
+        <div
+            style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <p style="text-align: center; color: #666; font-size: 0.95rem;">
+                All steak and chicken entrees are served with grilled vegetables, fresh bread, a Haus salad (Ranch, blue
+                cheese, Italian, thousand, balsamic vinaigrette or honey mustard) and your choice of a baked potato,
+                German fries, or French fries
+            </p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Chicken</h3>
+                <p>Marinated chicken breast grilled to perfection served with sautéed vegetables, and choice of French
+                    fries, German fries or baked potato.</p>
+            </div>
+            <div class="menu-item">
+                <h3>16oz Rib-Eye Steak</h3>
+                <p>Our ribeye steak, recognized for the marbling that runs throughout the steak slowly melts during the
+                    broiling process and is rubbed with a slightly spicy blend of spices.</p>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20Z" />
+            </svg>
+        </div>
+        <h2 class="menu-category-title">
+            <span>Italian Influence</span>
+            Pasta Classics
+        </h2>
+        <div
+            style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <p style="text-align: center; color: #666; font-size: 0.95rem;">
+                All pasta is served with fresh bread and Haus salad. (Ranch, blue cheese, Italian, thousand, Balsamic
+                vinaigrette or honey mustard)
+            </p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Spaghetti</h3>
+                <p>Choose from: Meat Sauce, Mushroom Sauce, Marinara Sauce, or Myzithra Cheese. Try any two sauces side
+                    by side!</p>
+            </div>
+            <div class="menu-item">
+                <h3>Lasagna</h3>
+                <p>One of our specialties layered with our Haus made meat sauce and layered with parmesan and ricotta
+                    cheese.</p>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12,2C15.89,2 19.13,4.41 20.45,7.85L19.55,8.15C18.41,5.19 15.61,3.1 12.3,3.1C11,3.1 9.77,3.5 8.79,4.2l-0.74,-0.85c1.12,-0.81 2.47,-1.25 3.95,-1.25zM12,22c-1.48,0 -2.83,-0.44 -3.95,-1.25L8.79,19.9c0.98,0.7 2.21,1.1 3.51,1.1c3.31,0 6.11,-2.09 7.25,-5.05l0.9,0.3C19.13,19.59 15.89,22 12,22zM12,12.5a1,1 0 1,1 0,-2 1,1 0 0,1 0,2zM12,7.5a1,1 0 1,1 0,-2 1,1 0 0,1 0,2zM12,17.5a1,1 0 1,1 0,-2 1,1 0 0,1 0,2zM17,12.5a1,1 0 1,1 0,-2 1,1 0 0,1 0,2zM7,12.5a1,1 0 1,1 0,-2 1,1 0 0,1 0,2z" />
+            </svg>
+        </div>
+        <h2 class="menu-category-title">
+            <span>Freshly Baked</span>
+            Stone Oven Pizza
+        </h2>
+        <div
+            style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <p style="text-align: center; color: #666; font-size: 0.95rem;">
+                10" gluten–free crust or 12" cauliflower crust available on any 12" pizza option at no additional charge
+            </p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Cheese</h3>
+                <p>Classic cheese pizza made fresh to order.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Pepperoni</h3>
+                <p>Traditional pepperoni pizza.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Hawaiian</h3>
+                <p>Ham and pineapple on a classic cheese base.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Haus Combo</h3>
+                <p>Italian Sausage, Pepperoni, salami, and mushrooms</p>
+            </div>
+            <div class="menu-item">
+                <h3>Chef Special</h3>
+                <p>Pepperoni, salami, black olives, onions, mushrooms, green pepper and Italian sausage</p>
+            </div>
+            <div class="menu-item">
+                <h3>Baren Haus Special</h3>
+                <p>Canadian Bacon, pepperoni, mushroom, onions, black olives, and Italian Sausage</p>
+            </div>
+            <div class="menu-item">
+                <h3>Margarita</h3>
+                <p>Olive oil, garlic, fresh basil, and tomato</p>
+            </div>
+            <div class="menu-item">
+                <h3>Vegetarian</h3>
+                <p>Black olives, mushrooms, onions, and green peppers</p>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path d="M12,2L1,21H23L12,2M12,6L19.53,19H4.47L12,6M11,10V14H13V10H11M11,16V18H13V16H11Z" />
+            </svg>
+        </div>
+        <h2 class="menu-category-title">
+            <span>Fresh & Garden</span>
+            Haus Salads
+        </h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Caesar Salad</h3>
+                <p>Fresh romaine lettuce tossed with Caesar dressing, parmesan cheese, and croutons.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Chicken Caesar Salad</h3>
+                <p>Our Caesar salad topped with grilled chicken.</p>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+            </svg>
+        </div>
+        <h2 class="menu-category-title">
+            <span>For the Little Ones</span>
+            Kids Menu
+        </h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Spaghetti and Meat Sauce</h3>
+                <p>Kid-sized portion of our delicious spaghetti.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Grilled Cheese and Fries</h3>
+                <p>Classic grilled cheese sandwich served with crispy fries.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Chicken Strips and Fries</h3>
+                <p>Tender chicken strips with fries.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Pizza Sandwich</h3>
+                <p>Mini pizza made just for kids.</p>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z" />
+            </svg>
+        </div>
+        <h2 class="menu-category-title">
+            <span>Sweet Treats</span>
+            Haus Desserts
+        </h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Haus Made Cheesecake</h3>
+                <p>Rich and creamy, made fresh in-house.</p>
+            </div>
+            <div class="menu-item">
+                <h3>German Apple Cake</h3>
+                <p>Traditional German dessert with fresh apples.</p>
+            </div>
+            <div class="menu-item">
+                <h3>German Chocolate Cake</h3>
+                <p>Decadent chocolate cake with coconut-pecan frosting.</p>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path d="M21,5H3V3H21V5M21,19H3V17H21V19M21,12H3V10H21V12Z" />
+            </svg>
+        </div>
+        <h2 class="menu-category-title">
+            <span>Thirst Quenchers</span>
+            Beverages
+        </h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Soft Drinks</h3>
+                <p>Pepsi products. Available by glass or pitcher.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Hot Beverages</h3>
+                <p>Coffee, Hot Chocolate, Hot Apple Cider, Hot Tea</p>
+            </div>
+            <div class="menu-item">
+                <h3>Juices & Milk</h3>
+                <p>Apple juice, Orange juice, Milk. Available in small or large sizes.</p>
+            </div>
+        </div>
+
+        <div
+            style="background: #fff3cd; padding: 1.5rem; border-radius: 10px; margin-top: 2rem; border-left: 4px solid #ffd700;">
+            <p style="text-align: center; color: #856404; font-size: 0.9rem;">
+                *Consuming raw or undercooked meats, poultry, seafood or shell fish may increase your risk of food borne
+                illness, especially if you have certain medical conditions.
+            </p>
+        </div>
+    </section>
+
+    <!-- Beer, Wine & Appetizers Section -->
+    <section id="drinks-menu">
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24">
+                <path d="M2,6L12,1L22,6L12,11L2,6M12,13L21,8.5V18.5L12,23L3,18.5V8.5L12,13Z" />
+            </svg>
+        </div>
+        <h2 class="menu-category-title">
+            <span>Refreshing Choices</span>
+            Beer, Wine & Appetizers
+        </h2>
+        <div class="menus-display">
+            <div class="menu-frame">
+                <img src="menu2.png" alt="Menu Page 1" id="menuImg1">
+            </div>
+            <div class="menu-frame">
+                <img src="menu.png" alt="Menu Page 2" id="menuImg2">
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <h2 class="menu-category-title" style="margin-bottom: 4rem;">
+            <span>Experience</span>
+            Bären Haus
+        </h2>
+        <div class="gallery-grid">
+            <div class="gallery-item wide">
+                <img src="https://www.barenhaus.com/wp-content/uploads/2016/08/2016-07-20-06.16.37-1024x685.jpg"
+                    alt="Bären Haus Exterior">
+                <div class="gallery-overlay">
+                    <h4>The Grand Entrance</h4>
+                    <p>Our historic Leavenworth location</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.barenhaus.com/wp-content/uploads/2016/08/2016-07-20-06.08.45-1024x685.jpg"
+                    alt="Dining Area">
+                <div class="gallery-overlay">
+                    <h4>Traditional Seating</h4>
+                    <p>Warm, rustic atmosphere for the whole family</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://barenhaus.com/wp-content/uploads/2016/08/Baren-Haus-Dinner-1024x683.jpg"
+                    alt="Dinner Service">
+                <div class="gallery-overlay">
+                    <h4>Hearty Feast</h4>
+                    <p>Signature Schnitzels and sausages</p>
+                </div>
+            </div>
+            <div class="gallery-item wide">
+                <img src="https://www.barenhaus.com/wp-content/uploads/2016/08/2016-07-20-06.10.00-1024x685.jpg"
+                    alt="Bar Seating">
+                <div class="gallery-overlay">
+                    <h4>The Biergarten</h4>
+                    <p>Authentic German drafts on tap</p>
+                </div>
+            </div>
+
+            <div class="gallery-item wide">
+                <img src="https://www.barenhaus.com/wp-content/uploads/2016/08/Baren-Haus-Inside.jpg"
+                    alt="Cozy Atmosphere">
+                <div class="gallery-overlay">
+                    <h4>Cozy Corners</h4>
+                    <p>Perfect for intimate dinners</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.barenhaus.com/wp-content/uploads/2016/08/baren-haus-night.jpg"
+                    alt="Bären Haus at Night">
+                <div class="gallery-overlay">
+                    <h4>Bavarian Nights</h4>
+                    <p>Experience the magic of Leavenworth</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="menu-category-title" style="color: #ffd700;">
+            <span>Get in Touch</span>
+            Contact Us
+        </h2>
+        <div class="contact-container">
+            <div class="contact-info-glass">
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <span class="material-symbols-rounded">location_on</span>
+                    </div>
+                    <div>
+                        <h4>Address</h4>
+                        <p>901 Front St<br>Leavenworth, WA 98826<br>United States</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <span class="material-symbols-rounded">call</span>
+                    </div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p><a href="tel:+15095484535">+1 509-548-4535</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <span class="material-symbols-rounded">mail</span>
+                    </div>
+                    <div>
+                        <h4>Email</h4>
+                        <p><a href="mailto:jet2night@gmail.com">jet2night@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <span class="material-symbols-rounded">share</span>
+                    </div>
+                    <div>
+                        <h4>Social Media</h4>
+                        <p><a href="https://www.facebook.com/baren.haus1/" target="_blank">Follow us on
+                                Facebook</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon" style="background: rgba(255, 215, 0, 0.2); border-color: #ffd700;">
+                        <span class="material-symbols-rounded" style="animation: pulse 2s infinite;">music_note</span>
+                    </div>
+                    <div>
+                        <h4>Live Music</h4>
+                        <p>Join us every weekend for live traditional German music and entertainment!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-glass">
+                <h4 style="color: #ffd700; margin-bottom: 2rem; font-family: 'Cinzel', serif; font-size: 1.5rem;">
+                    Send
+                    us
+                    a message</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <input type="tel" placeholder="Phone Number">
+                <textarea rows="5"
+                    placeholder="Your Message (Inquiries about large groups, catering, or special events welcome)"></textarea>
+                <button type="submit">Send Message</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Column 1: Brand -->
+            <div class="footer-column">
+                <img src="https://www.barenhaus.com/wp-content/uploads/2016/08/Baren-Haus-Logo-3-2.png"
+                    alt="Bären Haus Logo" style="max-width: 180px; margin-bottom: 1.5rem; filter: brightness(1.2);">
+                <p>Authentic German Cuisine & Beer House in the heart of Leavenworth since 1980. Experience the
+                    true
+                    warmth of Bavarian hospitality.</p>
+                <div class="social-icons" style="margin-top: 1rem;">
+                    <a href="https://www.facebook.com/baren.haus1/" target="_blank" class="social-icon"
+                        aria-label="Facebook">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.15 5.96C15.21 5.96 16.12 6.04 16.12 6.04V8.51H15.01C13.77 8.51 13.38 9.28 13.38 10.07V12.06H16.16L15.72 14.96H13.38V21.96C18.16 21.21 21.82 17.06 21.82 12.06C21.82 6.53 17.32 2.04 12 2.04Z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M12,6.8A5.2,5.2 0 0,1 17.2,12A5.2,5.2 0 0,1 12,17.2A5.2,5.2 0 0,1 6.8,12A5.2,5.2 0 0,1 12,6.8M12,8.8A3.2,3.2 0 0,0 8.8,12A3.2,3.2 0 0,0 12,15.2A3.2,3.2 0 0,0 15.2,12A3.2,3.2 0 0,0 12,8.8M18,5A1.5,1.5 0 0,1 19.5,6.5A1.5,1.5 0 0,1 18,8A1.5,1.5 0 0,1 16.5,6.5A1.5,1.5 0 0,1 18,5Z" />
+                        </svg>
+                    </a>
+                    <a href="https://birdeye.com/baren-haus-146790556007477#appointment" target="_blank"
+                        class="social-icon" aria-label="Birdeye Reviews">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="#home"><span class="material-symbols-rounded" style="font-size: 18px;">home</span>
+                            Home</a></li>
+                    <li><a href="#main-menu"><span class="material-symbols-rounded"
+                                style="font-size: 18px;">menu_book</span> Menu</a></li>
+                    <li><a href="#drinks-menu"><span class="material-symbols-rounded"
+                                style="font-size: 18px;">local_bar</span> Drinks</a></li>
+                    <li><a href="#gallery"><span class="material-symbols-rounded"
+                                style="font-size: 18px;">gallery_thumbnail</span> Gallery</a></li>
+                    <li><a href="#contact"><span class="material-symbols-rounded"
+                                style="font-size: 18px;">contact_support</span> Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Contact -->
+            <div class="footer-column">
+                <h4>Find Us</h4>
+                <ul>
+                    <li><a href="#"><span class="material-symbols-rounded" style="font-size: 18px;">location_on</span>
+                            901 Front St, Leavenworth, WA</a></li>
+                    <li><a href="tel:+15095484535"><span class="material-symbols-rounded"
+                                style="font-size: 18px;">call</span> +1 509-548-4535</a></li>
+                    <li><a href="mailto:jet2night@gmail.com"><span class="material-symbols-rounded"
+                                style="font-size: 18px;">mail</span> jet2night@gmail.com</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Hours -->
+            <div class="footer-column">
+                <h4>Hours</h4>
+                <p><strong>Mon - Thu:</strong> 11:30 AM - 8:00 PM</p>
+                <p><strong>Fri - Sat:</strong> 11:00 AM - 9:00 PM</p>
+                <p><strong>Sunday:</strong> 11:00 AM - 8:00 PM</p>
+                <p style="color: #ffd700; font-style: italic; font-size: 0.85rem;">*Hours may vary during
+                    holidays</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Bären Haus. All rights reserved. | Leavenworth's Premier German Restaurant</p>
+            <p style="margin-top: 0.5rem;">Dine-in • Takeaway • Large Group Reservations Available</p>
+        </div>
+    </footer>
+
+    <script>
+        // Image Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            currentSlide = (n + slides.length) % slides.length;
+
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        // Auto-advance slides every 4 seconds
+        setInterval(nextSlide, 4000);
+
+        // Mobile Menu Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('nav ul');
+
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                const icon = navToggle.querySelector('.material-symbols-outlined');
+                if (icon) {
+                    icon.textContent = navMenu.classList.contains('active') ? 'close' : 'menu';
+                }
+            });
+
+            // Close menu when a link is clicked
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    const icon = navToggle.querySelector('.material-symbols-outlined');
+                    if (icon) {
+                        icon.textContent = 'menu';
+                    }
+                });
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission handling
+        document.querySelector('.contact-form button').addEventListener('click', function (e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+        });
+
+        // PDF Download Logic
+        document.getElementById('downloadPdfBtn').addEventListener('click', async function () {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const btn = this;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Generating...';
+            btn.disabled = true;
+
+            try {
+                // Function to add image to document maintaining aspect ratio
+                const addImageToDoc = (imgData, isFirst = false) => {
+                    if (!isFirst) doc.addPage();
+
+                    // We need to get dimensions. Since we have base64, we can create a temporary image object
+                    // However, we know it's A4 usually. Let's just assume full width with margins.
+                    // To get real aspect ratio we can load it into an Image object first (which works fine with data uri)
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = function () {
+                            const pdfWidth = doc.internal.pageSize.getWidth();
+                            // Maintain aspect ratio, leaving a small margin
+                            const margin = 10;
+                            const availableWidth = pdfWidth - (margin * 2);
+                            const pdfHeight = (this.height * availableWidth) / this.width;
+
+                            doc.addImage(imgData, 'PNG', margin, margin, availableWidth, pdfHeight);
+                            resolve();
+                        };
+                        img.onerror = reject;
+                        img.src = imgData;
+                    });
+                };
+
+                // Sequential execution to ensure order and page breaks
+                if (typeof MENU_IMG_1_BASE64 !== 'undefined') await addImageToDoc(MENU_IMG_1_BASE64, true);
+                if (typeof MENU_IMG_2_BASE64 !== 'undefined') await addImageToDoc(MENU_IMG_2_BASE64, false);
+
+                doc.save('Baren_Haus_Menu.pdf');
+            } catch (error) {
+                console.error('PDF Generation failed:', error);
+                alert('There was an issue generating the PDF. Please try again.');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+    <!-- Chatbot Widget -->
+    <link rel="stylesheet" href="bot.css">
+    <!-- Your website content goes here -->
+
+
+    <!-- Chatbot Float Button -->
+    <button id="chatbot-toggle" class="chatbot-float-btn" aria-label="Open chat">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window" class="chatbot-window">
+        <div class="chatbot-header">
+            <div class="chatbot-header-content">
+                <h3>Bären Haus Assistant</h3>
+                <p class="chatbot-status">Online</p>
+            </div>
+            <div class="chatbot-header-actions">
+                <button id="chatbot-clear" class="chatbot-header-btn" title="Clear chat" aria-label="Clear chat">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                        </path>
+                    </svg>
+                </button>
+                <button id="chatbot-close" class="chatbot-close-btn" aria-label="Close chat">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="chatbot-messages" class="chatbot-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Willkommen! Welcome to Bären Haus! I'm here to help you with:</p>
+                    <ul>
+                        <li>Menu & Traditional German Dishes</li>
+                        <li>Live Music Schedule</li>
+                        <li>Large Group Seating</li>
+                        <li>Hours & Location</li>
+                        <li>Catering Information</li>
+                    </ul>
+                    <p>How can I assist you today?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="chatbot-quick-replies" id="quick-replies">
+            <button class="quick-reply-btn" data-message="What are your hours?">Hours</button>
+            <button class="quick-reply-btn" data-message="Tell me about live music">Live Music</button>
+            <button class="quick-reply-btn" data-message="What dishes do you serve?">Menu</button>
+            <button class="quick-reply-btn" data-message="How do I book for a large group?">Large
+                Groups</button>
+        </div>
+
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type your message..."
+                aria-label="Chat message">
+            <button id="chatbot-send" class="chatbot-send-btn" aria-label="Send message">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+
+
+    <!-- Scripts -->
+    <script src="bot.js"></script>
+    <!-- Add Google Fonts for Icons if not present -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+</body>
+
+</html>
