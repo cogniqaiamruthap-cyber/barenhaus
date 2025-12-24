@@ -120,15 +120,16 @@
         /* Hero Section with Slider */
         .hero {
             position: relative;
-            min-height: 100vh;
+            height: 100vh;
+            height: 100dvh;
             overflow: hidden;
             margin-top: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #000;
-            padding: 100px 20px;
-            /* Added padding to prevent clipping at top/bottom */
+            padding: 80px 20px 0;
+            /* Added top padding to clear fixed nav */
             box-sizing: border-box;
         }
 
@@ -225,7 +226,8 @@
             -webkit-backdrop-filter: blur(15px);
             padding: 3.5rem 2.5rem;
             border-radius: 30px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            /* Increased thickness and opacity */
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             animation: fadeInUp 1.2s ease-out;
             pointer-events: auto;
@@ -250,47 +252,55 @@
 
         .hero-logo {
             width: 100%;
-            max-width: 250px;
+            max-width: 180px;
             height: auto;
-            margin: 0 auto 2rem auto;
+            margin: 0 auto 1.5rem auto;
             display: block;
             filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
             flex-shrink: 0;
         }
 
-        .hero-tagline {
-            font-family: 'Georgia', serif;
-            font-size: 1.1rem;
-            color: #ffd700;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
         .hero-title {
             font-family: 'Cinzel', serif;
-            font-size: 3.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             color: #f5f5dc;
             margin-bottom: 2.5rem;
+            /* Increased margin since tagline is gone */
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
             line-height: 1.2;
+            position: relative;
+            padding-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
 
         .hero-cta {
             display: inline-block;
             background: linear-gradient(135deg, #ffd700 0%, #cdaa6c 100%);
             color: #1c120c;
-            padding: 1.2rem 3rem;
+            padding: 0.9rem 2.2rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
             border: none;
             cursor: pointer;
+            backdrop-filter: blur(5px);
         }
 
         .hero-cta:hover {
@@ -299,94 +309,15 @@
             background: linear-gradient(135deg, #f5f5dc 0%, #ffd700 100%);
         }
 
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            color: #f5f5dc;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-            pointer-events: auto;
-        }
-
-        .scroll-indicator:hover {
-            opacity: 1;
-        }
-
-        .mouse {
-            width: 26px;
-            height: 42px;
-            border: 2px solid #ffd700;
-            border-radius: 15px;
-            position: relative;
-        }
-
-        .scroll-wheel {
-            width: 4px;
-            height: 8px;
-            background: #ffd700;
-            border-radius: 2px;
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: scroll-anim 2s infinite;
-        }
-
-        @keyframes scroll-anim {
-            0% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(15px);
-            }
-        }
-
-        .slider-dots {
-            position: absolute;
-            bottom: 160px;
-            /* Moved up significantly to clear scroll indicator */
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 15px;
-            z-index: 10;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .dot.active {
-            background: #ffd700;
-            transform: scale(1.3);
-        }
-
         /* Section Styling */
         section {
-            padding: 5rem 2rem;
+            padding: clamp(3rem, 8vw, 6rem) 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         section h2 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
             color: #8B4513;
             margin-bottom: 2rem;
             text-align: center;
@@ -487,7 +418,7 @@
 
         .feature-card {
             background: white;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(139, 69, 19, 0.08);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -496,7 +427,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem;
+            height: 100%;
+        }
+
+        .feature-card p {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
         }
 
         .feature-card:hover {
@@ -573,45 +511,19 @@
         .menus-display {
             display: flex;
             justify-content: center;
-            gap: 3rem;
+            align-items: flex-start;
+            gap: 2.5rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
-        .menu-frame {
-            background: #fff;
-            padding: 1rem;
-            border: 12px solid #5d2e0c;
-            border-image: linear-gradient(135deg, #5d2e0c 0%, #8b4513 50%, #5d2e0c 100%) 1;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
-            max-width: 450px;
-            position: relative;
+        .menu-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
-        .menu-frame::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            right: -15px;
-            bottom: -15px;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            pointer-events: none;
-        }
 
-        @media (hover: hover) {
-            .menu-frame:hover {
-                transform: translateY(-15px) rotate(0deg);
-                box-shadow: 0 30px 60px rgba(139, 69, 19, 0.4);
-                border-image: linear-gradient(135deg, #ffd700 0%, #8b4513 50%, #ffd700 100%) 1;
-            }
-
-            .menu-frame:hover::before {
-                border-color: rgba(255, 215, 0, 0.8);
-                transform: scale(1.02);
-            }
-        }
 
         .menu-frame img {
             width: 100%;
@@ -654,7 +566,13 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            height: 100%;
+            min-height: 280px;
+        }
+
+        .menu-item p {
+            flex-grow: 1;
+            margin-top: 0.5rem;
         }
 
         .menu-item::before {
@@ -712,33 +630,11 @@
             margin-top: 0.5rem;
         }
 
-        /* Decorative Dividers */
-        .section-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 4rem 0 2rem;
-            gap: 20px;
-        }
 
-        .section-divider::before,
-        .section-divider::after {
-            content: '';
-            height: 2px;
-            flex: 1;
-            background: linear-gradient(90deg, transparent, #cdaa6c, transparent);
-        }
-
-        .section-divider svg {
-            width: 40px;
-            height: 40px;
-            fill: #8B4513;
-            opacity: 0.6;
-        }
 
         .menu-category-title {
             color: #654321;
-            font-size: 2.5rem;
+            font-size: clamp(1.6rem, 5vw, 2.5rem);
             margin-bottom: 2rem;
             text-align: center;
             font-family: 'Cinzel', serif;
@@ -1138,15 +1034,58 @@
             .hero-tagline {
                 font-size: 0.75rem;
                 letter-spacing: 2px;
+                margin-bottom: 0.5rem;
+                gap: 10px;
+            }
+
+            .hero-tagline::before,
+            .hero-tagline::after {
+                width: 20px;
+            }
+
+            .hero-logo {
+                max-width: 120px;
+                margin-bottom: 1rem;
+            }
+
+            .hero-content-box {
+                padding: clamp(1.5rem, 5vw, 2.5rem);
+                border-radius: 20px;
+                width: 90%;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.8rem;
+            }
+
+            .hero-title::after {
+                width: 80px;
+                height: 2px;
+            }
+
+            .hero-cta {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
             }
 
             /* Grid Stacking */
             .home-content,
             .contact-container,
+            .contact-form-grid,
             .features,
             .menu-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 2rem;
+            }
+
+            .feature-card,
+            .menu-item {
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
             }
 
             .gallery-grid {
@@ -1172,11 +1111,8 @@
             }
 
             .slider-dots {
-                bottom: 140px;
-            }
-
-            .scroll-indicator {
-                bottom: 25px;
+                bottom: 10px;
+                /* Absolute bottom on mobile */
             }
 
             .menu-item {
@@ -1242,6 +1178,9 @@
             .footer-column {
                 padding: 1.5rem 1rem;
                 text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 gap: 1rem;
             }
 
@@ -1257,7 +1196,7 @@
 
         @media (max-width: 480px) {
             .hero-title {
-                font-size: 1.5rem;
+                font-size: clamp(1.3rem, 6vw, 1.8rem);
             }
 
             .menus-display {
@@ -1269,9 +1208,8 @@
                 padding: 0.5rem;
             }
 
-            /* Contact Form Grid stacking */
+            /* Contact Form Grid already stacked at 768px */
             .contact-form-grid {
-                grid-template-columns: 1fr !important;
                 gap: 1rem;
             }
 
@@ -1478,7 +1416,6 @@
 
         <div class="hero-overlay">
             <div class="hero-content-box">
-                <span class="hero-tagline">Since 1980</span>
                 <img src="https://www.barenhaus.com/wp-content/uploads/2016/08/Baren-Haus-Logo-400x455.png"
                     alt="Bären Haus Logo" class="hero-logo">
                 <h1 class="hero-title">AUTHENTIC GERMAN<br>CUISINE & BEER HOUSE</h1>
@@ -1486,18 +1423,6 @@
             </div>
         </div>
 
-        <a href="#home" class="scroll-indicator">
-            <div class="mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-            <span>Discover More</span>
-        </a>
-        <div class="slider-dots">
-            <span class="dot active" onclick="goToSlide(0)"></span>
-            <span class="dot" onclick="goToSlide(1)"></span>
-            <span class="dot" onclick="goToSlide(2)"></span>
-            <span class="dot" onclick="goToSlide(3)"></span>
-        </div>
     </div>
 
     <!-- Home Section -->
@@ -1578,12 +1503,7 @@
 
     <!-- Main Menu Section -->
     <section id="main-menu">
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path
-                    d="M12,2L4,5V11C4,16.55 7.84,21.74 12,23C16.16,21.74 20,16.55 20,11V5L12,2M12,4.4L18,6.6V11C18,15.15 15.42,19.23 12,20.4C8.58,19.23 6,15.15 6,11V6.6L12,4.4M12,7C10.34,7 9,8.34 9,10C9,11.66 10.34,13 12,13C13.66,13 15,11.66 15,10C15,8.34 13.66,7 12,7Z" />
-            </svg>
-        </div>
+
 
         <h2 class="menu-category-title">
             <span>Our Traditional</span>
@@ -1645,12 +1565,7 @@
             </div>
         </div>
 
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path
-                    d="M11,9H13V11H11V9M11,13H13V17H11V13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20Z" />
-            </svg>
-        </div>
+
         <h2 class="menu-category-title">
             <span>Haus Specialty</span>
             German Sandwiches
@@ -1673,12 +1588,7 @@
             </div>
         </div>
 
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path
-                    d="M12,2A10,10 0 1,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 1,1 20,12A8,8 0 0,1 12,20M13,7H11V13H13M13,15H11V17H13" />
-            </svg>
-        </div>
+
         <h2 class="menu-category-title">
             <span>Charbroiler</span>
             Burgers & Sandwiches
@@ -1718,11 +1628,7 @@
             </div>
         </div>
 
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path d="M22,10V14H20V12H4V14H2V10H22M21,6V8H3V6H21M21,16V18H3V16H21Z" />
-            </svg>
-        </div>
+
         <h2 class="menu-category-title">
             <span>Premium Selection</span>
             Steak & Chicken
@@ -1748,12 +1654,7 @@
             </div>
         </div>
 
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path
-                    d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20Z" />
-            </svg>
-        </div>
+
         <h2 class="menu-category-title">
             <span>Italian Influence</span>
             Pasta Classics
@@ -1778,12 +1679,7 @@
             </div>
         </div>
 
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path
-                    d="M12,2C15.89,2 19.13,4.41 20.45,7.85L19.55,8.15C18.41,5.19 15.61,3.1 12.3,3.1C11,3.1 9.77,3.5 8.79,4.2l-0.74,-0.85c1.12,-0.81 2.47,-1.25 3.95,-1.25zM12,22c-1.48,0 -2.83,-0.44 -3.95,-1.25L8.79,19.9c0.98,0.7 2.21,1.1 3.51,1.1c3.31,0 6.11,-2.09 7.25,-5.05l0.9,0.3C19.13,19.59 15.89,22 12,22zM12,12.5a1,1 0 1,1 0,-2 1,1 0 0,1 0,2zM12,7.5a1,1 0 1,1 0,-2 1,1 0 0,1 0,2zM12,17.5a1,1 0 1,1 0,-2 1,1 0 0,1 0,2zM17,12.5a1,1 0 1,1 0,-2 1,1 0 0,1 0,2zM7,12.5a1,1 0 1,1 0,-2 1,1 0 0,1 0,2z" />
-            </svg>
-        </div>
+
         <h2 class="menu-category-title">
             <span>Freshly Baked</span>
             Stone Oven Pizza
@@ -1795,18 +1691,7 @@
             </p>
         </div>
         <div class="menu-grid">
-            <div class="menu-item">
-                <h3>Cheese</h3>
-                <p>Classic cheese pizza made fresh to order.</p>
-            </div>
-            <div class="menu-item">
-                <h3>Pepperoni</h3>
-                <p>Traditional pepperoni pizza.</p>
-            </div>
-            <div class="menu-item">
-                <h3>Hawaiian</h3>
-                <p>Ham and pineapple on a classic cheese base.</p>
-            </div>
+
             <div class="menu-item">
                 <h3>Haus Combo</h3>
                 <p>Italian Sausage, Pepperoni, salami, and mushrooms</p>
@@ -1819,140 +1704,35 @@
                 <h3>Baren Haus Special</h3>
                 <p>Canadian Bacon, pepperoni, mushroom, onions, black olives, and Italian Sausage</p>
             </div>
-            <div class="menu-item">
-                <h3>Margarita</h3>
-                <p>Olive oil, garlic, fresh basil, and tomato</p>
-            </div>
-            <div class="menu-item">
-                <h3>Vegetarian</h3>
-                <p>Black olives, mushrooms, onions, and green peppers</p>
-            </div>
+
         </div>
 
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path d="M12,2L1,21H23L12,2M12,6L19.53,19H4.47L12,6M11,10V14H13V10H11M11,16V18H13V16H11Z" />
-            </svg>
-        </div>
-        <h2 class="menu-category-title">
-            <span>Fresh & Garden</span>
-            Haus Salads
-        </h2>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <h3>Caesar Salad</h3>
-                <p>Fresh romaine lettuce tossed with Caesar dressing, parmesan cheese, and croutons.</p>
-            </div>
-            <div class="menu-item">
-                <h3>Chicken Caesar Salad</h3>
-                <p>Our Caesar salad topped with grilled chicken.</p>
-            </div>
-        </div>
 
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path
-                    d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
-            </svg>
-        </div>
-        <h2 class="menu-category-title">
-            <span>For the Little Ones</span>
-            Kids Menu
-        </h2>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <h3>Spaghetti and Meat Sauce</h3>
-                <p>Kid-sized portion of our delicious spaghetti.</p>
-            </div>
-            <div class="menu-item">
-                <h3>Grilled Cheese and Fries</h3>
-                <p>Classic grilled cheese sandwich served with crispy fries.</p>
-            </div>
-            <div class="menu-item">
-                <h3>Chicken Strips and Fries</h3>
-                <p>Tender chicken strips with fries.</p>
-            </div>
-            <div class="menu-item">
-                <h3>Pizza Sandwich</h3>
-                <p>Mini pizza made just for kids.</p>
-            </div>
-        </div>
 
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z" />
-            </svg>
-        </div>
-        <h2 class="menu-category-title">
-            <span>Sweet Treats</span>
-            Haus Desserts
-        </h2>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <h3>Haus Made Cheesecake</h3>
-                <p>Rich and creamy, made fresh in-house.</p>
-            </div>
-            <div class="menu-item">
-                <h3>German Apple Cake</h3>
-                <p>Traditional German dessert with fresh apples.</p>
-            </div>
-            <div class="menu-item">
-                <h3>German Chocolate Cake</h3>
-                <p>Decadent chocolate cake with coconut-pecan frosting.</p>
-            </div>
-        </div>
 
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path d="M21,5H3V3H21V5M21,19H3V17H21V19M21,12H3V10H21V12Z" />
-            </svg>
-        </div>
-        <h2 class="menu-category-title">
-            <span>Thirst Quenchers</span>
-            Beverages
-        </h2>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <h3>Soft Drinks</h3>
-                <p>Pepsi products. Available by glass or pitcher.</p>
-            </div>
-            <div class="menu-item">
-                <h3>Hot Beverages</h3>
-                <p>Coffee, Hot Chocolate, Hot Apple Cider, Hot Tea</p>
-            </div>
-            <div class="menu-item">
-                <h3>Juices & Milk</h3>
-                <p>Apple juice, Orange juice, Milk. Available in small or large sizes.</p>
-            </div>
-        </div>
 
-        <div
-            style="background: #fff3cd; padding: 1.5rem; border-radius: 10px; margin-top: 2rem; border-left: 4px solid #ffd700;">
-            <p style="text-align: center; color: #856404; font-size: 0.9rem;">
-                *Consuming raw or undercooked meats, poultry, seafood or shell fish may increase your risk of food borne
-                illness, especially if you have certain medical conditions.
-            </p>
-        </div>
+
+
+
+
+
+
+
+
     </section>
 
     <!-- Beer, Wine & Appetizers Section -->
     <section id="drinks-menu">
-        <div class="section-divider">
-            <svg viewBox="0 0 24 24">
-                <path d="M2,6L12,1L22,6L12,11L2,6M12,13L21,8.5V18.5L12,23L3,18.5V8.5L12,13Z" />
-            </svg>
-        </div>
+
         <h2 class="menu-category-title">
             <span>Refreshing Choices</span>
             Beer, Wine & Appetizers
         </h2>
         <div class="menus-display">
-            <div class="menu-frame">
-                <img src="menu2.png" alt="Menu Page 1" id="menuImg1">
-            </div>
-            <div class="menu-frame">
-                <img src="menu.png" alt="Menu Page 2" id="menuImg2">
-            </div>
+            <img src="m12.png" alt="Menu Page 1" id="menuImg1"
+                style="max-width: 450px; width: 100%; border: 10px solid #fff; background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
+            <img src="m11.png" alt="Menu Page 2" id="menuImg2"
+                style="max-width: 450px; width: 100%; border: 10px solid #fff; background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
         </div>
 
 
@@ -2180,12 +1960,10 @@
 
         function showSlide(n) {
             slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
 
             currentSlide = (n + slides.length) % slides.length;
 
             slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
         }
 
         function nextSlide() {
