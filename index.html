@@ -1216,11 +1216,14 @@
             /* Fix Fixed Backgrounds on Mobile */
             #contact {
                 background-attachment: scroll;
+                padding: 4rem 1rem;
+                /* Reduced from 8rem 2rem */
             }
 
             .contact-info-glass,
             .contact-form-glass {
-                padding: 2rem 1.5rem;
+                padding: 2rem 1.2rem;
+                /* More compact on mobile */
                 border-radius: 20px;
                 -webkit-backdrop-filter: blur(15px);
                 backdrop-filter: blur(15px);
@@ -1228,6 +1231,7 @@
 
             .contact-container {
                 margin-top: 2rem;
+                padding: 0;
             }
 
             .contact-item {
@@ -1263,6 +1267,25 @@
             .menu-frame {
                 border-width: 4px;
                 padding: 0.5rem;
+            }
+
+            /* Contact Form Grid stacking */
+            .contact-form-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+            }
+
+            .contact-item {
+                gap: 0.8rem;
+            }
+
+            .contact-item-icon {
+                width: 42px;
+                height: 42px;
+            }
+
+            .contact-item h4 {
+                font-size: 1.1rem;
             }
         }
 
@@ -2056,7 +2079,7 @@
                     Send
                     us
                     a message</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="contact-form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                     <input type="text" placeholder="Your Name" required>
                     <input type="email" placeholder="Your Email" required>
                 </div>
