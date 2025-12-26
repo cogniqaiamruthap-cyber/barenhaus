@@ -12,11 +12,13 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
-    border: none;
-    color: white;
+    background: rgba(28, 18, 12, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    color: #ffd700;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,7 +28,8 @@
 
 .chatbot-float-btn:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(139, 69, 19, 0.5);
+    box-shadow: 0 6px 30px rgba(255, 215, 0, 0.4);
+    border-color: rgba(255, 215, 0, 0.5);
 }
 
 .chatbot-float-btn:active {
@@ -70,13 +73,16 @@
 
 /* Header */
 .chatbot-header {
-    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
-    color: white;
+    background: rgba(28, 18, 12, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #f5f5dc;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
 }
 
 .chatbot-header-content h3 {
